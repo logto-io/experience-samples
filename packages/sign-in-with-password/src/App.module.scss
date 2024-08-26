@@ -1,0 +1,8 @@
+@use '@logto/experience-sample-toolkit/scss/underscore' as _;
+
+.header {
+  font: var(--font-title-2);
+  text-align: center;
+  color: var(--color-type-primary);
+  margin-bottom: _.unit(6);
+}

@@ -1,0 +1,24 @@
+{
+  "name": "root",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "author": "Silverhand Inc. <contact@silverhand.io>",
+  "scripts": {
+    "prepack": "pnpm -r prepack",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
+    "@commitlint/types": "^19.0.0",
+    "husky": "^9.0.11",
+    "typescript": "^5.3.3"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  }
+}

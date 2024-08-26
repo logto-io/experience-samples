@@ -1,0 +1,28 @@
+name: Main
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node and pnpm
+        uses: silverhand-io/actions-node-pnpm-run-steps@v5
+        with:
+          pnpm-version: 9
+
+      - name: Build
+        run: pnpm -r build
+
+      - name: Lint
+        run: pnpm -r lint
