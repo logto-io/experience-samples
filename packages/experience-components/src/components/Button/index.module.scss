@@ -1,0 +1,101 @@
+@use '@logto/experience-sample-toolkit/scss/underscore' as _;
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 44px;
+  padding: 0 _.unit(4);
+  border-radius: 8px;
+  cursor: pointer;
+  font: var(--font-label-1);
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s ease-in-out;
+  user-select: none;
+  overflow: hidden;
+  font: var(--font-label-2);
+
+ .icon {
+    font-size: 0;
+    line-height: normal;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    padding-right: _.unit(2);
+  }
+}
+
+.large {
+  width: 100%;
+}
+
+.small {
+  min-width: 85px;
+}
+
+.primary {
+  border: none;
+  background: var(--color-brand-default);
+  color: var(--color-static-white);
+
+  &.disabled,
+  &:disabled {
+    background: var(--color-bg-state-disabled);
+    color: var(--color-type-disable);
+  }
+
+  &:active {
+    background: var(--color-brand-pressed);
+  }
+
+  &.loading {
+    background-color: var(--color-brand-loading);
+  }
+
+  &:focus-visible {
+      outline: 3px solid var(--color-overlay-brand-focused);
+    }
+
+  &:not(:disabled):not(:active):not(.loading):hover {
+    background: var(--color-brand-hover);
+  }
+}
+
+.secondary {
+  border: solid 1px var(--color-line-border);
+  background: transparent;
+  color: var(--color-type-primary);
+
+  &.disabled,
+  &:disabled {
+    border-color: var(--color-type-disable);
+    color: var(--color-type-disable);
+  }
+
+  &:active {
+    background: var(--color-overlay-neutral-pressed);
+  }
+
+  &:focus-visible {
+      outline: 3px solid var(--color-overlay-neutral-focused);
+    }
+
+  &:not(:disabled):not(:active):not(.loading):hover {
+    background: var(--color-overlay-neutral-hover);
+  }
+}
+
+.loadingIcon {
+  animation: rotating 1s linear infinite;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
