@@ -1,8 +1,0 @@
-{
-  "extends": "@silverhand/ts-config-react/tsconfig.base",
-  "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./lib"
-  },
-  "include": ["src", "*.config.ts"]
-}

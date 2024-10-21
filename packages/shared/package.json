@@ -1,5 +1,5 @@
 {
-  "name": "@logto/experience-sample-toolkit",
+  "name": "@logto/experience-sample-shared",
   "version": "0.0.0",
   "license": "MIT",
   "type": "module",
@@ -10,11 +10,12 @@
       "import": "./lib/index.js"
     },
     "./api": {
-      "default": "./src/api/experience-api.js",
-      "types": "./src/api/experience-api.d.ts",
-      "import": "./src/api/experience-api.js"
+      "default": "./src/experience-api/index.js",
+      "types": "./src/experience-api/index.d.ts",
+      "import": "./src/experience-api/index.js"
     },
-    "./scss/*": "./scss/*.scss"
+    "./assets/*": "./assets/*",
+    "./scss/*": "./scss/*"
   },
   "types": "./lib/index.d.ts",
   "files": [
@@ -29,9 +30,6 @@
     "stylelint": "stylelint \"scss/**/*.scss\"",
     "prepack": "pnpm build"
   },
-  "dependencies": {
-    "ky": "^1.6.0"
-  },
   "devDependencies": {
     "@logto/schemas": "^1.19.0",
     "@silverhand/eslint-config": "6.0.1",
@@ -41,10 +39,13 @@
     "swagger-typescript-api": "^13.0.21",
     "typescript": "^5.5.3"
   },
+  "engines": {
+    "node": "^20.11.0"
+  },
   "eslintConfig": {
     "extends": "@silverhand",
     "ignorePatterns": [
-      "src/api/experience-api.ts"
+      "src/experience-api/index.ts"
     ]
   },
   "stylelint": {

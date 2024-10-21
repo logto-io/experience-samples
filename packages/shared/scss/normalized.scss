@@ -1,0 +1,134 @@
+@use './colors' as colors;
+@use './fonts' as fonts;
+
+body {
+  @include colors.static;
+  @include colors.light;
+  @include fonts.default;
+
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: auto;
+  color: var(--color-type-primary);
+  font: var(--font-body-2);
+  box-sizing: border-box;
+  background: var(--color-bg-float-base);
+  -webkit-tap-highlight-color: transparent;
+
+  --max-width: 400px;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+.logo {
+  margin-bottom: 20px;
+  height: 54px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: var(--max-width);
+  margin: 0 auto;
+  padding: 40px;
+  gap: 20px;
+  border-radius: 6px;
+  background-color: var(--color-static-white);
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  label {
+    font: var(--font-label-2);
+  }
+}
+
+input {
+  height: 24px;
+  outline: none;
+  padding: 10px;
+  margin: 0;
+  border-radius: 8px;
+  border: 1px solid var(--color-line-border);
+}
+
+.submit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  margin-top: 20px;
+  font: var(--font-label-1);
+  background-color: var(--color-brand-default);
+  color: var(--color-static-white);
+  transition: background-color 0.3s ease-in-out;
+
+  &:not(:disabled):hover {
+    background-color: var(--color-brand-hover);
+    cursor: pointer;
+  }
+
+  &:not(:disabled):active {
+    background-color: var(--color-brand-pressed);
+  }
+
+  &:disabled {
+    background-color: var(--color-brand-loading);
+  }
+
+  & > .spinner {
+    display: none;
+  }
+
+  &.loading {
+    background-color: var(--color-brand-loading);
+    
+    & > span {
+      display: none;
+    }
+
+    & > .spinner {
+      display: block;
+    }
+  }
+}
+
+.error-message {
+  margin: 20px auto;
+  color: var(--color-danger-default);
+  
+  &.hidden {
+    display: none;
+  }
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  background: url(../assets/loading-ring.svg) center/100% no-repeat;
+  animation: rotating 1s linear infinite;
+}
+
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
