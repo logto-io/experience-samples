@@ -54,13 +54,32 @@ form {
   }
 }
 
+.flex-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
 input {
-  height: 24px;
+  flex: 1;
+  line-height: 24px;
   outline: none;
   padding: 10px;
   margin: 0;
   border-radius: 8px;
   border: 1px solid var(--color-line-border);
+}
+
+.button {
+  height: 46px;
+  border: 1px solid var(--color-line-border);
+  border-radius: 8px;
+  font: var(--font-label-3);
+
+  &:not(:disabled):hover {
+    cursor: pointer;
+  }
 }
 
 .submit-button {
