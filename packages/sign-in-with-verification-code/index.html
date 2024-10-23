@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Logto experience sample</title>
+    <link rel="icon" href="./favicon.ico" />
+    <script type="module" src="src/index.ts"></script>
+  </head>
+
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div class="app">
+      <form>
+        <img fetchpriority="high" class="logo" src="https://logto.io/logo.svg" alt="Logto branding logo" />
+        <div class="input-field">
+          <label for="email">Email</label>
+          <div class="flex-wrapper">
+            <input type="text" name="email" required />
+            <button class="button" style="width:100px" type="button">Send code</button>
+          </div>
+        </div>
+        <div class="input-field">
+          <label for="verification-code">Verification code</label>
+          <input type="text" name="verification-code" required />
+        </div>
+        <button class="submit-button" type="submit">
+          <span>Sign in</span>
+          <div class="spinner"></div>
+        </button>
+      </form>
+      <div class="error-message hidden"></div>
+    </div>
+  </body>
+</html>
