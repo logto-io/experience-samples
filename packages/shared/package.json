@@ -10,9 +10,14 @@
       "import": "./lib/index.js"
     },
     "./api": {
-      "default": "./src/experience-api/index.js",
-      "types": "./src/experience-api/index.d.ts",
-      "import": "./src/experience-api/index.js"
+      "default": "./src/experience-api.js",
+      "types": "./src/experience-api.d.ts",
+      "import": "./src/experience-api.js"
+    },
+    "./utils": {
+      "default": "./src/utils.js",
+      "types": "./src/utils.d.ts",
+      "import": "./src/utils.js"
     },
     "./assets/*": "./assets/*",
     "./scss/*": "./scss/*"
@@ -28,7 +33,7 @@
     "generate-api": "node scripts/generate-api.js",
     "lint": "eslint --ext .ts src",
     "stylelint": "stylelint \"scss/**/*.scss\"",
-    "prepack": "pnpm build"
+    "prepack": "pnpm generate-api && pnpm build"
   },
   "devDependencies": {
     "@logto/schemas": "^1.19.0",
@@ -45,8 +50,11 @@
   "eslintConfig": {
     "extends": "@silverhand",
     "ignorePatterns": [
-      "src/experience-api/index.ts"
-    ]
+      "src/experience-api.ts"
+    ],
+    "rules": {
+      "@silverhand/fp/no-mutation": "off"
+    }
   },
   "stylelint": {
     "extends": "@silverhand/eslint-config-react/.stylelintrc"

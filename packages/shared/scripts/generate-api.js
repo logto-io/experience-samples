@@ -2,11 +2,11 @@ import path from 'node:path';
 
 import { generateApi } from 'swagger-typescript-api';
 
-const outputDirectory = path.resolve(import.meta.dirname, '../src/api');
+const outputDirectory = path.resolve(import.meta.dirname, '../src');
 const openApiJsonUrl = 'https://auth.logto.app/api/.well-known/experience.openapi.json';
 
 generateApi({
-  name: 'index.ts',
+  name: 'experience-api.ts',
   url: openApiJsonUrl,
   output: outputDirectory,
   httpClientType: 'fetch',

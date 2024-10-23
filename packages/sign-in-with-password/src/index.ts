@@ -1,5 +1,5 @@
-import { Api } from '@logto/experience-sample-shared/api';
-import logo from '@logto/experience-sample-shared/assets/logto-logo-light.svg';
+import { Api } from '@logto/experience-sample-shared';
+import { clearError, handleError, setSubmitLoading } from '@logto/experience-sample-shared/utils';
 import { InteractionEvent, SignInIdentifier } from '@logto/schemas';
 
 import '@logto/experience-sample-shared/scss/normalized.scss';
@@ -7,56 +7,52 @@ import '@logto/experience-sample-shared/scss/normalized.scss';
 const api = new Api({ baseUrl: window.location.origin });
 
 window.addEventListener('load', () => {
-  document.querySelector('.logo')?.setAttribute('src', logo);
-  const form = document.querySelector('#sign-in-form');
-  const submitButton = document.querySelector('.submit-button');
-  const errorContainer = document.querySelector('.error-message');
+  const form = document.querySelector('form');
 
   form?.addEventListener('submit', async (event) => {
     event.preventDefault();
-    errorContainer?.classList.remove('hidden');
-    const formData = new FormData(event.currentTarget as HTMLFormElement);
-    const username = formData.get('username')?.toString();
-    const password = formData.get('password')?.toString();
+    setSubmitLoading(true);
+    clearError();
 
     try {
-      submitButton?.setAttribute('disabled', 'disabled');
-      submitButton?.classList.add('loading');
+      const formData = new FormData(form);
+      const username = formData.get('username')?.toString();
+      const password = formData.get('password')?.toString();
 
       if (!username || !password) {
         throw new Error('Username and password are required.');
       }
 
-      await api.experience.initInteraction(
-        { interactionEvent: InteractionEvent.SignIn },
-        { format: 'json' }
-      );
+      /**
+       * Step 1: Initialize a sign-in type interaction.
+       */
+      await api.experience.initInteraction({ interactionEvent: InteractionEvent.SignIn });
 
-      const { verificationId } = await api.experience.createPasswordVerification(
-        {
-          // You can change the identifier type to email or phone if that's your sign-in identifier.
-          identifier: { type: SignInIdentifier.Username, value: username },
-          password,
-        },
-        { format: 'json' }
-      );
+      /**
+       * Step 2: Create a password verification.
+       *
+       * Note:
+       * 1. The password must meet your current password policy requirements.
+       * 2. You can change the identifier type to `email` or `phone` if that's your sign-in identifier.
+       */
+      const { verificationId } = await api.experience.createPasswordVerification({
+        identifier: { type: SignInIdentifier.Username, value: username },
+        password,
+      });
 
-      await api.experience.identifyUser({ verificationId }, { format: 'json' });
+      /**
+       * Step 3: Identify the user.
+       */
+      await api.experience.identifyUser({ verificationId });
 
-      const { redirectTo } = await api.experience.submitInteraction({ format: 'json' });
+      /**
+       * Step 4: Submit the interaction and redirect back to your app after the interaction is completed.
+       */
+      const { redirectTo } = await api.experience.submitInteraction();
       window.location.replace(redirectTo);
     } catch (error) {
-      console.error(error);
-      if (errorContainer) {
-        errorContainer.classList.remove('hidden');
-        errorContainer.innerHTML =
-          error instanceof Error
-            ? error.message
-            : 'Error occurred. Please check debugger console for details.';
-      }
-
-      submitButton?.removeAttribute('disabled');
-      submitButton?.classList.remove('loading');
+      handleError(error);
+      setSubmitLoading(false);
     }
   });
 });
