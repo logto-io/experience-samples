@@ -1,5 +1,5 @@
 import { Api } from '@logto/experience-sample-shared/api';
-import logo from '@logto/experience-sample-shared/assets/logto-logo-light.svg';
+import { clearError, handleError, setSubmitLoading } from '@logto/experience-sample-shared/utils';
 import { InteractionEvent } from '@logto/schemas';
 
 import '@logto/experience-sample-shared/scss/normalized.scss';
@@ -7,22 +7,18 @@ import '@logto/experience-sample-shared/scss/normalized.scss';
 const api = new Api({ baseUrl: window.location.origin });
 
 window.addEventListener('load', () => {
-  document.querySelector('.logo')?.setAttribute('src', logo);
   const form = document.querySelector('form');
-  const submitButton = document.querySelector('.submit-button');
-  const errorContainer = document.querySelector('.error-message');
 
   form?.addEventListener('submit', async (event) => {
     event.preventDefault();
-    errorContainer?.classList.remove('hidden');
-    const formData = new FormData(event.currentTarget as HTMLFormElement);
-    const username = formData.get('username')?.toString();
-    const password = formData.get('password')?.toString();
-    const confirmPassword = formData.get('confirm-password')?.toString();
+    setSubmitLoading(true);
+    clearError();
 
     try {
-      submitButton?.setAttribute('disabled', 'disabled');
-      submitButton?.classList.add('loading');
+      const formData = new FormData(form);
+      const username = formData.get('username')?.toString();
+      const password = formData.get('password')?.toString();
+      const confirmPassword = formData.get('confirm-password')?.toString();
 
       if (!username || !password) {
         throw new Error('Username and password are required.');
@@ -32,36 +28,37 @@ window.addEventListener('load', () => {
         throw new Error('Passwords do not match.');
       }
 
-      await api.experience.initInteraction(
-        { interactionEvent: InteractionEvent.Register },
-        { format: 'json' }
-      );
+      /**
+       * Step 1: Initialize a register type interaction.
+       */
+      await api.experience.initInteraction({ interactionEvent: InteractionEvent.Register });
 
-      // Ensure the username is not already taken.
-      // You can also use `type: 'email'` or `type: 'phone'`, if that's your sign-up identifier.
+      /**
+       * Step 2: Ensure the username is not already taken.
+       */
       await api.experience.addUserProfile({ type: 'username', value: username });
 
-      // Continue registering with password.
+      /**
+       * Step 3: Continue registering with password.
+       */
       await api.experience.addUserProfile({ type: 'password', value: password });
 
-      // Unlink registering with verification code or social, register with identifier and password does not
-      // require a verification step in prior, but the identification step is still required.
+      /**
+       * Step 4: Identify the user.
+       *
+       * Note: Unlike registering with verification code or social, register with identifier and password
+       * does not require a verification step in prior, but the identification step is still required.
+       */
       await api.experience.identifyUser({});
 
-      const { redirectTo } = await api.experience.submitInteraction({ format: 'json' });
+      /**
+       * Step 5: Submit the interaction and redirect back to your app after the interaction is completed.
+       */
+      const { redirectTo } = await api.experience.submitInteraction();
       window.location.replace(redirectTo);
     } catch (error) {
-      console.error(error);
-      if (errorContainer) {
-        errorContainer.classList.remove('hidden');
-        errorContainer.innerHTML =
-          error instanceof Error
-            ? error.message
-            : 'Error occurred. Please check debugger console for details.';
-      }
-
-      submitButton?.removeAttribute('disabled');
-      submitButton?.classList.remove('loading');
+      handleError(error);
+      setSubmitLoading(false);
     }
   });
 });
