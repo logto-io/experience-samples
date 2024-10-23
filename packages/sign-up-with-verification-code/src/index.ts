@@ -1,5 +1,5 @@
-import { Api } from '@logto/experience-sample-shared/api';
-import logo from '@logto/experience-sample-shared/assets/logto-logo-light.svg';
+import { Api } from '@logto/experience-sample-shared';
+import { clearError, handleError, setSubmitLoading } from '@logto/experience-sample-shared/utils';
 import { InteractionEvent } from '@logto/schemas';
 
 import '@logto/experience-sample-shared/scss/normalized.scss';
@@ -8,11 +8,8 @@ const defaultResendCodeTimeout = 60;
 const api = new Api({ baseUrl: window.location.origin });
 
 window.addEventListener('load', () => {
-  document.querySelector('.logo')?.setAttribute('src', logo);
   const form = document.querySelector('form');
   const sendCodeButton = document.querySelector('.button');
-  const submitButton = document.querySelector('.submit-button');
-  const errorContainer = document.querySelector('.error-message');
 
   let verificationId = '';
 
@@ -51,15 +48,20 @@ window.addEventListener('load', () => {
 
       countDown();
 
-      await api.experience.initInteraction(
-        { interactionEvent: InteractionEvent.Register },
-        { format: 'json' }
-      );
+      /**
+       * Step 1: Initialize a register type interaction.
+       */
+      await api.experience.initInteraction({ interactionEvent: InteractionEvent.Register });
+
+      /**
+       * Step 2: Create a verification record and send out the verification code.
+       */
       const { verificationId: id } = await api.experience.createAndSendVerificationCode({
         identifier: { type: 'email', value: email },
         interactionEvent: InteractionEvent.Register,
       });
 
+      // Save the verificationId for later use.
       verificationId = id;
     } catch (error) {
       handleError(error);
@@ -68,30 +70,35 @@ window.addEventListener('load', () => {
 
   form?.addEventListener('submit', async (event) => {
     event.preventDefault();
-    errorContainer?.classList.remove('hidden');
-    const formData = new FormData(form);
-    const email = formData.get('email')?.toString();
-    const verificationCode = formData.get('verification-code')?.toString();
+    setSubmitLoading(true);
+    clearError();
 
     try {
-      submitButton?.setAttribute('disabled', 'disabled');
-      submitButton?.classList.add('loading');
+      const formData = new FormData(form);
+      const email = formData.get('email')?.toString();
+      const verificationCode = formData.get('verification-code')?.toString();
 
       if (!email || !verificationCode) {
         throw new Error('Email and verification code are required.');
       }
 
-      await api.experience.verifyVerificationCodeVerification(
-        {
-          identifier: { type: 'email', value: email },
-          verificationId,
-          code: verificationCode,
-        },
-        { format: 'json' }
-      );
+      /**
+       * Step 3: Verify the verification code.
+       */
+      await api.experience.verifyVerificationCodeVerification({
+        identifier: { type: 'email', value: email },
+        verificationId,
+        code: verificationCode,
+      });
 
+      /**
+       * Step 4: Identify the user.
+       */
       await api.experience.identifyUser({ verificationId });
 
+      /**
+       * Step 5: Submit the interaction and redirect back to your app after the interaction is completed.
+       */
       const { redirectTo } = await api.experience.submitInteraction({ format: 'json' });
       window.location.replace(redirectTo);
     } catch (error) {
@@ -99,20 +106,3 @@ window.addEventListener('load', () => {
     }
   });
 });
-
-const handleError = (error: unknown) => {
-  const errorContainer = document.querySelector('.error-message');
-  const submitButton = document.querySelector('.submit-button');
-
-  console.error(error);
-  if (errorContainer) {
-    errorContainer.classList.remove('hidden');
-    errorContainer.innerHTML =
-      error instanceof Error
-        ? error.message
-        : 'Error occurred. Please check debugger console for details.';
-  }
-
-  submitButton?.removeAttribute('disabled');
-  submitButton?.classList.remove('loading');
-};
