@@ -1,4 +1,4 @@
-import { Api } from '@logto/experience-sample-shared';
+import { Api } from '@logto/experience-sample-shared/api';
 import { clearError, handleError, setSubmitLoading } from '@logto/experience-sample-shared/utils';
 import { InteractionEvent } from '@logto/schemas';
 
@@ -49,9 +49,9 @@ window.addEventListener('load', () => {
       countDown();
 
       /**
-       * Step 1: Initialize a register type interaction.
+       * Step 1: Initialize a sign-in type interaction.
        */
-      await api.experience.initInteraction({ interactionEvent: InteractionEvent.Register });
+      await api.experience.initInteraction({ interactionEvent: InteractionEvent.SignIn });
 
       /**
        * Step 2: Create a verification record and send out the verification code.
@@ -59,7 +59,7 @@ window.addEventListener('load', () => {
        */
       const { verificationId: id } = await api.experience.createAndSendVerificationCode({
         identifier: { type: 'email', value: email },
-        interactionEvent: InteractionEvent.Register,
+        interactionEvent: InteractionEvent.SignIn,
       });
 
       // Save the verificationId for later use.
@@ -99,16 +99,16 @@ window.addEventListener('load', () => {
         await api.experience.identifyUser({ verificationId });
       } catch {
         /**
-         * If the user is already registered yet, this API will returned an error with code 'user.email_already_in_use'.
+         * If the user is not yet registered, this API will returned an error with code 'user.user_not_exist'.
          *
          * In this case, you have two options:
-         * 1. Show the error and redirect the user to the sign-in page.
-         * 2. Prompt the user for auto-sign-in and continue the flow.
+         * 1. Show the error and redirect the user to the sign-up page.
+         * 2. Prompt the user for auto-register and continue the flow.
          *
-         * Example code for auto-sign-in:
+         * Example code for auto-register:
          * --------------------------------------------
-         * // Update the interaction event to 'SignIn'.
-         * await api.experience.updateInteractionEvent({ interactionEvent: InteractionEvent.SignIn });
+         * // Update the interaction event to 'Register'.
+         * await api.experience.updateInteractionEvent({ interactionEvent: InteractionEvent.Register });
          *
          * // Identify the user again.
          * await api.experience.identifyUser({ verificationId });
@@ -116,7 +116,8 @@ window.addEventListener('load', () => {
       }
 
       /**
-       * Step 5: Submit the interaction and redirect back to your app after the interaction is completed.
+       * Step 5: Submit the interaction to complete the sign-in process. Redirect back to your app via
+       * the "Redirect URI" you configured in Logto Admin Console.
        */
       const { redirectTo } = await api.experience.submitInteraction({ format: 'json' });
       window.location.replace(redirectTo);
