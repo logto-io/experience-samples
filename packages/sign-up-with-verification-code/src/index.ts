@@ -94,7 +94,25 @@ window.addEventListener('load', () => {
       /**
        * Step 4: Identify the user.
        */
-      await api.experience.identifyUser({ verificationId });
+      try {
+        await api.experience.identifyUser({ verificationId });
+      } catch {
+        /**
+         * If the user is already registered yet, this API will returned an error with code 'user.email_already_in_use'.
+         *
+         * In this case, you have two options:
+         * 1. Show the error and redirect the user to the sign-in page.
+         * 2. Prompt the user for auto-sign-in and continue the flow.
+         *
+         * Example code for auto-sign-in:
+         * --------------------------------------------
+         * // Update the interaction event to 'SignIn'.
+         * await api.experience.updateInteractionEvent({ interactionEvent: InteractionEvent.SignIn });
+         *
+         * // Identify the user again.
+         * await api.experience.identifyUser({ verificationId });
+         */
+      }
 
       /**
        * Step 5: Submit the interaction and redirect back to your app after the interaction is completed.
