@@ -1,9 +1,11 @@
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
-  extends: '@silverhand/react',
+  extends: '@silverhand/eslint-config',
   rules: {
     'jsx-a11y/no-autofocus': 'off',
     'unicorn/prefer-string-replace-all': 'off',
+    'no-restricted-syntax': 'off',
+    '@silverhand/fp/no-mutation': 'off',
   },
   overrides: [
     {

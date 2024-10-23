@@ -36,7 +36,7 @@ export interface CreateAndSendVerificationCodeData {
   verificationId: string;
 }
 
-export interface VerifyVerificationCodeData {
+export interface VerifyVerificationCodeVerificationData {
   /** he unique ID of the verification record. Required for user identification via the `Identification` API or to bind the identifier to the user's account via the `Profile` API. */
   verificationId: string;
 }
@@ -171,7 +171,7 @@ export interface CreateNewPasswordIdentityVerificationData {
   verificationId: string;
 }
 
-export type UpdateUserProfileData = any;
+export type AddUserProfileData = any;
 
 export type ResetUserPasswordData = any;
 
@@ -442,7 +442,7 @@ export enum ContentType {
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl: string = "http://localhost:3001";
+  public baseUrl: string = "https://[tenant_id].logto.app/";
   private securityData: SecurityDataType | null = null;
   private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
   private abortControllers = new Map<CancelToken, AbortController>();
@@ -609,9 +609,11 @@ export class HttpClient<SecurityDataType = unknown> {
 /**
  * @title Logto experience API references
  * @version Cloud
- * @baseUrl http://localhost:3001
+ * @baseUrl https://[tenant_id].logto.app/
  *
  * API references for Logto experience interaction.
+ *
+ * Note: The documentation is for Logto Cloud. If you are using Logto OSS, please refer to the response of `/api/swagger.json` endpoint on your Logto instance.
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
   experience = {
@@ -767,11 +769,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @description Verify the provided verification code against the user's identifier. If successful, the verification record will be marked as verified.
      *
      * @tags Experience
-     * @name VerifyVerificationCode
+     * @name VerifyVerificationCodeVerification
      * @summary Verify verification code
      * @request POST:/api/experience/verification/verification-code/verify
      */
-    verifyVerificationCode: (
+    verifyVerificationCodeVerification: (
       data: {
         /** The identifier (email address or phone number) to verify the code against. Must match the identifier used to send the verification code. */
         identifier: {
@@ -785,7 +787,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       },
       params: RequestParams = {},
     ) =>
-      this.request<VerifyVerificationCodeData, void>({
+      this.request<VerifyVerificationCodeVerificationData, void>({
         path: `/api/experience/verification/verification-code/verify`,
         method: "POST",
         body: data,
@@ -1152,11 +1154,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @description Adds user profile data to the current experience interaction. <br/>- For `Register`: The profile data provided before the identification request will be used to create a new user account. <br/>- For `SignIn` and `Register`: The profile data provided after the user is identified will be used to update the user's profile when the interaction is submitted. <br/>- `ForgotPassword`: Not supported.
      *
      * @tags Experience
-     * @name UpdateUserProfile
-     * @summary Update user profile data
+     * @name AddUserProfile
+     * @summary Add user profile
      * @request POST:/api/experience/profile
      */
-    updateUserProfile: (
+    addUserProfile: (
       data: (
         | {
             /** @format "username" */
@@ -1197,7 +1199,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       },
       params: RequestParams = {},
     ) =>
-      this.request<UpdateUserProfileData, void>({
+      this.request<AddUserProfileData, void>({
         path: `/api/experience/profile`,
         method: "POST",
         body: data,
