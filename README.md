@@ -6,16 +6,14 @@
       <img width="200" src="https://github.com/logto-io/logto/raw/master/logo.png" alt="Logto logo">
     </picture>
   </a>
+  <br/>
+  <span><i><a href="https://logto.io" target="_blank">Logto</a> is the better identity infrastructure for developers.</i>
 </p>
 
 [![discord](https://img.shields.io/discord/965845662535147551?color=5865f2&label=discord)](https://discord.gg/vRvwuwgpVX)
 [![cloud](https://img.shields.io/badge/cloud-available-7958ff)](https://cloud.logto.io/?sign_up=true&utm_source=github&utm_medium=repo_logto)
 
-# The better identity infrastructure for developers
-
-Every app needs authentication and authorization. Logto[^info] is an open-source Auth0 alternative designed for modern apps and SaaS products.
-
-## Logto sign-in experience custom UI samples
+# Logto sign-in experience custom UI samples
 
 | Name                                                                              | Description                                                              |
 | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
