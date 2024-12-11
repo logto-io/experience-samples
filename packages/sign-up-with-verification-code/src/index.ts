@@ -122,6 +122,7 @@ window.addEventListener('load', () => {
       window.location.replace(redirectTo);
     } catch (error) {
       handleError(error);
+      setSubmitLoading(false);
     }
   });
 });
