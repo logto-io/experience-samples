@@ -23,7 +23,7 @@
     "prettier": "^3.0.0",
     "stylelint": "^16.0.0",
     "typescript": "^5.5.3",
-    "vite": "^6.0.9"
+    "vite": "^6.0.12"
   },
   "stylelint": {
     "extends": "@silverhand/eslint-config/.stylelintrc"
