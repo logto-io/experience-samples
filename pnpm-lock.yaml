@@ -37,7 +37,7 @@ importers:
     devDependencies:
       '@logto/schemas':
         specifier: ^1.19.0
-        version: 1.19.0(zod@3.23.8)
+        version: 1.19.0(zod@3.24.3)
       '@silverhand/eslint-config':
         specifier: 6.0.1
         version: 6.0.1(eslint@8.57.0)(prettier@3.3.3)(typescript@5.5.4)
@@ -87,8 +87,8 @@ importers:
         specifier: ^5.5.3
         version: 5.5.4
       vite:
-        specifier: ^6.3.6
-        version: 6.3.6(@types/node@22.3.0)(jiti@1.21.6)(sass-embedded@1.77.8)(yaml@2.8.0)
+        specifier: ^7.0.0
+        version: 7.1.11(@types/node@22.3.0)(jiti@1.21.6)(sass-embedded@1.77.8)(yaml@2.8.0)
 
   packages/sign-in-with-verification-code:
     devDependencies:
@@ -120,8 +120,8 @@ importers:
         specifier: ^5.5.3
         version: 5.5.4
       vite:
-        specifier: ^6.3.6
-        version: 6.3.6(@types/node@22.3.0)(jiti@1.21.6)(sass-embedded@1.77.8)(yaml@2.8.0)
+        specifier: ^7.0.0
+        version: 7.1.11(@types/node@22.3.0)(jiti@1.21.6)(sass-embedded@1.77.8)(yaml@2.8.0)
 
   packages/sign-up-with-password:
     devDependencies:
@@ -153,8 +153,8 @@ importers:
         specifier: ^5.5.3
         version: 5.5.4
       vite:
-        specifier: ^6.3.6
-        version: 6.3.6(@types/node@22.3.0)(jiti@1.21.6)(sass-embedded@1.77.8)(yaml@2.8.0)
+        specifier: ^7.0.0
+        version: 7.1.11(@types/node@22.3.0)(jiti@1.21.6)(sass-embedded@1.77.8)(yaml@2.8.0)
 
   packages/sign-up-with-verification-code:
     devDependencies:
@@ -186,8 +186,8 @@ importers:
         specifier: ^5.5.3
         version: 5.5.4
       vite:
-        specifier: ^6.3.6
-        version: 6.3.6(@types/node@22.3.0)(jiti@1.21.6)(sass-embedded@1.77.8)(yaml@2.8.0)
+        specifier: ^7.0.0
+        version: 7.1.11(@types/node@22.3.0)(jiti@1.21.6)(sass-embedded@1.77.8)(yaml@2.8.0)
 
 packages:
 
@@ -2818,19 +2818,19 @@ packages:
   varint@6.0.0:
     resolution: {integrity: sha512-cXEIW6cfr15lFv563k4GuVuW/fiwjknytD37jIOLSdSWuOI6WnO/oKwmP2FQTU2l01LP8/M5TSAJpzUaGe3uWg==}
 
-  vite@6.3.6:
-    resolution: {integrity: sha512-0msEVHJEScQbhkbVTb/4iHZdJ6SXp/AvxL2sjwYQFfBqleHtnCqv1J3sa9zbWz/6kW1m9Tfzn92vW+kZ1WV6QA==}
-    engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
+  vite@7.1.11:
+    resolution: {integrity: sha512-uzcxnSDVjAopEUjljkWh8EIrg6tlzrjFUfMcR1EVsRDGwf/ccef0qQPRyOrROwhrTDaApueq+ja+KLPlzR/zdg==}
+    engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
-      '@types/node': ^18.0.0 || ^20.0.0 || >=22.0.0
+      '@types/node': ^20.19.0 || >=22.12.0
       jiti: '>=1.21.0'
-      less: '*'
+      less: ^4.0.0
       lightningcss: ^1.21.0
-      sass: '*'
-      sass-embedded: '*'
-      stylus: '*'
-      sugarss: '*'
+      sass: ^1.70.0
+      sass-embedded: ^1.70.0
+      stylus: '>=0.54.8'
+      sugarss: ^5.0.0
       terser: ^5.16.0
       tsx: ^4.8.1
       yaml: ^2.4.2
@@ -3231,13 +3231,6 @@ snapshots:
     optionalDependencies:
       zod: 3.24.3
 
-  '@logto/phrases-experience@1.7.0(zod@3.23.8)':
-    dependencies:
-      '@logto/core-kit': 2.5.0
-      '@logto/language-kit': 1.1.0
-      '@silverhand/essentials': 2.9.1
-      zod: 3.23.8
-
   '@logto/phrases-experience@1.7.0(zod@3.24.3)':
     dependencies:
       '@logto/core-kit': 2.5.0
@@ -3245,29 +3238,11 @@ snapshots:
       '@silverhand/essentials': 2.9.1
       zod: 3.24.3
 
-  '@logto/phrases@1.13.0(zod@3.23.8)':
-    dependencies:
-      '@logto/language-kit': 1.1.0
-      '@silverhand/essentials': 2.9.1
-      zod: 3.23.8
-
   '@logto/phrases@1.13.0(zod@3.24.3)':
     dependencies:
       '@logto/language-kit': 1.1.0
       '@silverhand/essentials': 2.9.1
       zod: 3.24.3
-
-  '@logto/schemas@1.19.0(zod@3.23.8)':
-    dependencies:
-      '@logto/connector-kit': 4.0.0
-      '@logto/core-kit': 2.5.0
-      '@logto/language-kit': 1.1.0
-      '@logto/phrases': 1.13.0(zod@3.23.8)
-      '@logto/phrases-experience': 1.7.0(zod@3.23.8)
-      '@logto/shared': 3.1.1
-      '@withtyped/server': 0.13.6(zod@3.23.8)
-      nanoid: 5.0.9
-      zod: 3.23.8
 
   '@logto/schemas@1.19.0(zod@3.24.3)':
     dependencies:
@@ -3400,10 +3375,10 @@ snapshots:
       eslint-config-prettier: 9.1.0(eslint@8.57.0)
       eslint-config-xo: 0.44.0(eslint@8.57.0)
       eslint-config-xo-typescript: 4.0.0(@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0)(typescript@5.5.4))(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0)(typescript@5.5.4)
-      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0)
+      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-plugin-import@2.29.1)(eslint@8.57.0)
       eslint-plugin-consistent-default-export-name: 0.0.15
       eslint-plugin-eslint-comments: 3.2.0(eslint@8.57.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
       eslint-plugin-n: 17.10.2(eslint@8.57.0)
       eslint-plugin-no-use-extend-native: 0.5.0
       eslint-plugin-prettier: 5.2.1(eslint-config-prettier@9.1.0(eslint@8.57.0))(eslint@8.57.0)(prettier@3.3.3)
@@ -4072,13 +4047,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0):
+  eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-plugin-import@2.29.1)(eslint@8.57.0):
     dependencies:
       debug: 4.4.0
       enhanced-resolve: 5.17.1
       eslint: 8.57.0
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.6
       is-core-module: 2.15.0
@@ -4089,14 +4064,14 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-module-utils@2.8.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0):
+  eslint-module-utils@2.8.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
       '@typescript-eslint/parser': 7.18.0(eslint@8.57.0)(typescript@5.5.4)
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0)
+      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-plugin-import@2.29.1)(eslint@8.57.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -4118,7 +4093,7 @@ snapshots:
       eslint: 8.57.0
       ignore: 5.3.2
 
-  eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0):
+  eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0):
     dependencies:
       array-includes: 3.1.8
       array.prototype.findlastindex: 1.2.5
@@ -4128,7 +4103,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
       hasown: 2.0.2
       is-core-module: 2.15.0
       is-glob: 4.0.3
@@ -5698,7 +5673,7 @@ snapshots:
   varint@6.0.0:
     optional: true
 
-  vite@6.3.6(@types/node@22.3.0)(jiti@1.21.6)(sass-embedded@1.77.8)(yaml@2.8.0):
+  vite@7.1.11(@types/node@22.3.0)(jiti@1.21.6)(sass-embedded@1.77.8)(yaml@2.8.0):
     dependencies:
       esbuild: 0.25.9
       fdir: 6.5.0(picomatch@4.0.3)
