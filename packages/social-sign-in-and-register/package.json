@@ -1,0 +1,36 @@
+{
+  "name": "@logto/experience-sample-social",
+  "description": "A sample project demonstrates how to use Logto Experience API to build a social sign-in page.",
+  "author": "Silverhand Inc. <contact@silverhand.io>",
+  "license": "MIT",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "precommit": "lint-staged",
+    "start": "vite",
+    "dev": "logto-tunnel --verbose & vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint --ext .ts src",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@logto/experience-sample-shared": "workspace:^",
+    "@logto/schemas": "^1.19.0",
+    "@silverhand/eslint-config": "^6.0.1",
+    "@silverhand/ts-config": "^6.0.0",
+    "eslint": "^8.56.0",
+    "lint-staged": "^15.0.0",
+    "prettier": "^3.0.0",
+    "stylelint": "^15.0.0",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.6"
+  },
+  "stylelint": {
+    "extends": "@silverhand/eslint-config/.stylelintrc"
+  },
+  "prettier": "@silverhand/eslint-config/.prettierrc",
+  "dependencies": {
+    "js-base64": "^3.7.7",
+    "superstruct": "^2.0.2"
+  }
+}
