@@ -26,6 +26,289 @@ export interface SubmitInteractionData {
   redirectTo: string;
 }
 
+export interface GetInteractionData {
+  interactionEvent: "SignIn" | "Register" | "ForgotPassword";
+  userId?: string;
+  profile: {
+    /** @maxLength 2048 */
+    avatar?: string | null;
+    /** @maxLength 128 */
+    name?: string | null;
+    /** @maxLength 128 */
+    username?: string | null;
+    /** @maxLength 128 */
+    primaryEmail?: string | null;
+    /** @maxLength 128 */
+    primaryPhone?: string | null;
+    profile?: {
+      familyName?: string;
+      givenName?: string;
+      middleName?: string;
+      nickname?: string;
+      preferredUsername?: string;
+      profile?: string;
+      website?: string;
+      gender?: string;
+      birthdate?: string;
+      zoneinfo?: string;
+      locale?: string;
+      address?: {
+        formatted?: string;
+        streetAddress?: string;
+        locality?: string;
+        region?: string;
+        postalCode?: string;
+        country?: string;
+      };
+    };
+    /** arbitrary */
+    customData?: object;
+    socialIdentity?: {
+      target: string;
+      userInfo: {
+        id: string;
+        email?: string;
+        phone?: string;
+        name?: string;
+        avatar?: string;
+        /** arbitrary JSON object */
+        rawData?: object | (string | number | boolean | object)[] | string | number | boolean | null;
+      };
+    };
+    enterpriseSsoIdentity?: {
+      /**
+       * @minLength 1
+       * @maxLength 128
+       */
+      identityId: string;
+      /**
+       * @minLength 1
+       * @maxLength 128
+       */
+      ssoConnectorId: string;
+      /**
+       * @minLength 1
+       * @maxLength 256
+       */
+      issuer: string;
+      /** arbitrary */
+      detail: object;
+    };
+    syncedEnterpriseSsoIdentity?: {
+      /**
+       * @minLength 1
+       * @maxLength 128
+       */
+      identityId: string;
+      /**
+       * @minLength 1
+       * @maxLength 256
+       */
+      issuer: string;
+      /** arbitrary */
+      detail: object;
+    };
+    jitOrganizationIds?: string[];
+  };
+  verificationRecords?: (
+    | {
+        id: string;
+        /** @format "Password" */
+        type: string;
+        identifier: {
+          type: "username" | "email" | "phone" | "userId";
+          value: string;
+        };
+        verified: boolean;
+      }
+    | {
+        id: string;
+        templateType:
+          | "SignIn"
+          | "Register"
+          | "ForgotPassword"
+          | "OrganizationInvitation"
+          | "Generic"
+          | "UserPermissionValidation"
+          | "BindNewIdentifier"
+          | "MfaVerification"
+          | "BindMfa";
+        verified: boolean;
+        /** @format "EmailVerificationCode" */
+        type: string;
+        identifier: {
+          /** @format "email" */
+          type: string;
+          value: string;
+        };
+      }
+    | {
+        id: string;
+        templateType:
+          | "SignIn"
+          | "Register"
+          | "ForgotPassword"
+          | "OrganizationInvitation"
+          | "Generic"
+          | "UserPermissionValidation"
+          | "BindNewIdentifier"
+          | "MfaVerification"
+          | "BindMfa";
+        verified: boolean;
+        /** @format "PhoneVerificationCode" */
+        type: string;
+        identifier: {
+          /** @format "phone" */
+          type: string;
+          value: string;
+        };
+      }
+    | {
+        id: string;
+        templateType:
+          | "SignIn"
+          | "Register"
+          | "ForgotPassword"
+          | "OrganizationInvitation"
+          | "Generic"
+          | "UserPermissionValidation"
+          | "BindNewIdentifier"
+          | "MfaVerification"
+          | "BindMfa";
+        verified: boolean;
+        /** @format "MfaEmailVerificationCode" */
+        type: string;
+        identifier: {
+          /** @format "email" */
+          type: string;
+          value: string;
+        };
+      }
+    | {
+        id: string;
+        templateType:
+          | "SignIn"
+          | "Register"
+          | "ForgotPassword"
+          | "OrganizationInvitation"
+          | "Generic"
+          | "UserPermissionValidation"
+          | "BindNewIdentifier"
+          | "MfaVerification"
+          | "BindMfa";
+        verified: boolean;
+        /** @format "MfaPhoneVerificationCode" */
+        type: string;
+        identifier: {
+          /** @format "phone" */
+          type: string;
+          value: string;
+        };
+      }
+    | {
+        id: string;
+        connectorId: string;
+        /** @format "Social" */
+        type: string;
+        socialUserInfo?: {
+          id: string;
+          email?: string;
+          phone?: string;
+          name?: string;
+          avatar?: string;
+          /** arbitrary JSON object */
+          rawData?: object | (string | number | boolean | object)[] | string | number | boolean | null;
+        };
+      }
+    | {
+        id: string;
+        connectorId: string;
+        /** @format "EnterpriseSso" */
+        type: string;
+        enterpriseSsoUserInfo?: {
+          id: string;
+          email?: string;
+          phone?: string;
+          name?: string;
+          avatar?: string;
+          /** arbitrary JSON object */
+          rawData?: object | (string | number | boolean | object)[] | string | number | boolean | null;
+        };
+        issuer?: string;
+      }
+    | {
+        id: string;
+        /** @format "Totp" */
+        type: string;
+        userId: string;
+        verified: boolean;
+      }
+    | {
+        id: string;
+        /** @format "BackupCode" */
+        type: string;
+        userId: string;
+        code?: string;
+      }
+    | {
+        id: string;
+        /** @format "WebAuthn" */
+        type: string;
+        userId: string;
+        verified: boolean;
+      }
+    | {
+        id: string;
+        /** @format "NewPasswordIdentity" */
+        type: string;
+        identifier: {
+          type: "username" | "email" | "phone";
+          value: string;
+        };
+      }
+    | {
+        id: string;
+        /** @format "OneTimeToken" */
+        type: string;
+        verified: boolean;
+        identifier: {
+          /** @format "email" */
+          type: string;
+          value: string;
+        };
+        oneTimeTokenContext?: {
+          jitOrganizationIds?: string[];
+        };
+      }
+  )[];
+  mfa?: {
+    mfaSkipped?: boolean;
+    totp?: {
+      /** @format "Totp" */
+      type: string;
+    };
+    webAuthn?: {
+      /** @format "WebAuthn" */
+      type: string;
+      rpId: string;
+      credentialId: string;
+      publicKey: string;
+      transports: ("usb" | "nfc" | "ble" | "internal" | "cable" | "hybrid" | "smart-card")[];
+      counter: number;
+      agent: string;
+      name?: string;
+    }[];
+    backupCode?: {
+      /** @format "BackupCode" */
+      type: string;
+    };
+  };
+  captcha?: {
+    verified: boolean;
+    skipped: boolean;
+  };
+}
+
 export interface CreatePasswordVerificationData {
   /** The unique verification ID of the newly created Password verification record. The `verificationId` is required when verifying the user's identity via the `Identification` API. */
   verificationId: string;
@@ -37,7 +320,17 @@ export interface CreateAndSendVerificationCodeData {
 }
 
 export interface VerifyVerificationCodeVerificationData {
-  /** he unique ID of the verification record. Required for user identification via the `Identification` API or to bind the identifier to the user's account via the `Profile` API. */
+  /** The unique ID of the verification record. Required for user identification via the `Identification` API or to bind the identifier to the user's account via the `Profile` API. */
+  verificationId: string;
+}
+
+export interface CreateAndSendMfaVerificationCodeData {
+  /** The unique ID of the verification record. Required to verify the code. */
+  verificationId: string;
+}
+
+export interface VerifyMfaVerificationCodeData {
+  /** The unique ID of the verification record. This can be used for subsequent MFA operations. */
   verificationId: string;
 }
 
@@ -171,11 +464,18 @@ export interface CreateNewPasswordIdentityVerificationData {
   verificationId: string;
 }
 
+export interface VerifyOneTimeTokenVerificationData {
+  /** The unique ID of the verification record. Required for user identification via the `Identification` API or to bind the identifier to the user's account via the `Profile` API. */
+  verificationId: string;
+}
+
 export type AddUserProfileData = any;
 
 export type ResetUserPasswordData = any;
 
 export type SkipMfaBindingFlowData = any;
+
+export type SkipMfaSuggestionData = any;
 
 export type BindMfaVerificationData = any;
 
@@ -183,218 +483,6 @@ export interface GetEnabledSsoConnectorsData {
   /** The list of enabled SSO connectorIds. Returns an empty array if no enabled SSO connectors are found. */
   connectorIds: string[];
 }
-
-export type InteractionUpdateData = any;
-
-export type InteractionDeleteData = any;
-
-export type InteractionEventUpdateData = any;
-
-export type InteractionIdentifiersPartialUpdateData = any;
-
-export type InteractionProfileUpdateData = any;
-
-export type InteractionProfilePartialUpdateData = any;
-
-export type InteractionProfileDeleteData = any;
-
-export interface InteractionSubmitCreateData {
-  redirectTo: string;
-}
-
-export type InteractionConsentCreateData = any;
-
-export interface InteractionConsentListData {
-  application: {
-    /**
-     * @minLength 1
-     * @maxLength 21
-     */
-    id: string;
-    /**
-     * @minLength 1
-     * @maxLength 256
-     */
-    name: string;
-    branding?: {
-      /** @format url */
-      logoUrl?: string;
-      /** @format url */
-      darkLogoUrl?: string;
-      /** @format url */
-      favicon?: string;
-      /** @format url */
-      darkFavicon?: string;
-    };
-    /** @maxLength 256 */
-    displayName?: string | null;
-    /** @maxLength 2048 */
-    privacyPolicyUrl?: string | null;
-    /** @maxLength 2048 */
-    termsOfUseUrl?: string | null;
-  };
-  user: {
-    /**
-     * @minLength 1
-     * @maxLength 12
-     */
-    id: string;
-    /** @maxLength 128 */
-    name: string | null;
-    /** @maxLength 2048 */
-    avatar: string | null;
-    /** @maxLength 128 */
-    username: string | null;
-    /** @maxLength 128 */
-    primaryEmail: string | null;
-    /** @maxLength 128 */
-    primaryPhone: string | null;
-  };
-  organizations?: {
-    /**
-     * @minLength 1
-     * @maxLength 21
-     */
-    id: string;
-    /**
-     * @minLength 1
-     * @maxLength 128
-     */
-    name: string;
-    missingResourceScopes?: {
-      resource: {
-        /** @minLength 1 */
-        name: string;
-        /** @minLength 1 */
-        indicator: string;
-        id: string;
-      };
-      scopes: {
-        /**
-         * @minLength 1
-         * @maxLength 21
-         */
-        id: string;
-        /**
-         * @minLength 1
-         * @maxLength 256
-         */
-        name: string;
-        description: string | null;
-      }[];
-    }[];
-  }[];
-  missingOIDCScope?: string[];
-  missingResourceScopes?: {
-    resource: {
-      /** @minLength 1 */
-      name: string;
-      /** @minLength 1 */
-      indicator: string;
-      id: string;
-    };
-    scopes: {
-      /**
-       * @minLength 1
-       * @maxLength 21
-       */
-      id: string;
-      /**
-       * @minLength 1
-       * @maxLength 256
-       */
-      name: string;
-      description: string | null;
-    }[];
-  }[];
-  redirectUri: string;
-}
-
-export interface InteractionVerificationSocialAuthorizationUriCreateData {
-  redirectTo: string;
-}
-
-export type InteractionVerificationVerificationCodeCreateData = any;
-
-export interface InteractionVerificationTotpCreateData {
-  secret: string;
-  secretQrCode: string;
-}
-
-export interface InteractionVerificationWebauthnRegistrationCreateData {
-  rp: {
-    name: string;
-    id?: string;
-  };
-  user: {
-    id: string;
-    name: string;
-    displayName: string;
-  };
-  challenge: string;
-  pubKeyCredParams: {
-    /** @format "public-key" */
-    type: string;
-    alg: number;
-  }[];
-  timeout?: number;
-  excludeCredentials?: {
-    /** @format "public-key" */
-    type: string;
-    id: string;
-    transports?: ("usb" | "nfc" | "ble" | "internal" | "cable" | "hybrid" | "smart-card")[];
-  }[];
-  authenticatorSelection?: {
-    authenticatorAttachment?: "platform" | "cross-platform";
-    requireResidentKey?: boolean;
-    residentKey?: "discouraged" | "preferred" | "required";
-    userVerification?: "required" | "preferred" | "discouraged";
-  };
-  attestation?: "none" | "indirect" | "direct" | "enterprise";
-  extensions?: {
-    appid?: string;
-    credProps?: boolean;
-    hmacCreateSecret?: boolean;
-  };
-}
-
-export interface InteractionVerificationWebauthnAuthenticationCreateData {
-  challenge: string;
-  timeout?: number;
-  rpId?: string;
-  allowCredentials?: {
-    /** @format "public-key" */
-    type: string;
-    id: string;
-    transports?: ("usb" | "nfc" | "ble" | "internal" | "cable" | "hybrid" | "smart-card")[];
-  }[];
-  userVerification?: "required" | "preferred" | "discouraged";
-  extensions?: {
-    appid?: string;
-    credProps?: boolean;
-    hmacCreateSecret?: boolean;
-  };
-}
-
-export type InteractionBindMfaCreateData = any;
-
-export type InteractionMfaUpdateData = any;
-
-export type InteractionMfaSkippedUpdateData = any;
-
-export interface InteractionSingleSignOnAuthorizationUrlCreateData {
-  redirectTo: string;
-}
-
-export interface InteractionSingleSignOnAuthenticationCreateData {
-  redirectTo: string;
-}
-
-export interface InteractionSingleSignOnRegistrationCreateData {
-  redirectTo: string;
-}
-
-export type InteractionSingleSignOnConnectorsListData = string[];
 
 export type QueryParamsType = Record<string | number, any>;
 export type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;
@@ -628,6 +716,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     initInteraction: (
       data: {
         interactionEvent: "SignIn" | "Register" | "ForgotPassword";
+        captchaToken?: string;
       },
       params: RequestParams = {},
     ) =>
@@ -672,9 +761,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      */
     identifyUser: (
       data: {
-        /** The ID of the verification record used to identify the user. <br/>- `SignIn` and `ForgotPassword` interactions: Required to verify the user's identity. <br/>- `Register` interaction: Optional. If provided, it updates the profile data with the verification record before account creation. If omitted, the account is created using existing profile data in the current interaction. */
+        /** The ID of the verification record used to identify the user. <br/>- For `SignIn` and `ForgotPassword` interactions: Required to verify the user's identity. <br/>- For `Register` interaction: Optional. If provided, new profile(s) will be attached to the registration session using the information from the verification record and trigger the account creation attempt. If not provided, the user account creation attempt will be triggered using the existing profile data in the interaction. */
         verificationId?: string;
-        /** Applies to the SignIn interaction only, and is used when a SocialVerification type verificationId is provided. <br/>- If `true`, the user is identified using the verified email or phone number from the social identity provider, and the social identity is linked to the user's account. <br/>- If `false` or not provided, the API identifies the user solely through the social identity. <br/> This parameters is used for linking a non-existing social identity to a related user account that can be identified through the verified email or phone number. */
+        /** Applies only to the SignIn interaction and is used when a SocialVerification type verification ID is provided. <br/>- If `true`, the user is identified using the verified email or phone number from the social identity provider, and the social identity is linked to the user's account. <br/>- If `false` or not provided, the API identifies the user solely through the social identity. <br/>This parameter is used to link a non-existing social identity to a related user account identified by the verified email or phone number. */
         linkSocialIdentity?: boolean;
       },
       params: RequestParams = {},
@@ -700,6 +789,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<SubmitInteractionData, void>({
         path: `/api/experience/submit`,
         method: "POST",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Get the public interaction data.
+     *
+     * @tags Experience
+     * @name GetInteraction
+     * @summary Get public interaction data
+     * @request GET:/api/experience/interaction
+     */
+    getInteraction: (params: RequestParams = {}) =>
+      this.request<GetInteractionData, any>({
+        path: `/api/experience/interaction`,
+        method: "GET",
         format: "json",
         ...params,
       }),
@@ -747,10 +852,25 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     createAndSendVerificationCode: (
       data: {
         /** The identifier (email address or phone number) to send the verification code to. */
-        identifier: {
-          type: "email" | "phone";
-          value: string;
-        };
+        identifier:
+          | {
+              /** @format "email" */
+              type: string;
+              /**
+               * @format regex
+               * @pattern /^\S+@\S+\.\S+$/
+               */
+              value: string;
+            }
+          | {
+              /** @format "phone" */
+              type: string;
+              /**
+               * @format regex
+               * @pattern /^\d+$/
+               */
+              value: string;
+            };
         /** The interaction event for which the verification code will be used. Supported values are `SignIn`, `Register`, and `ForgotPassword`. This determines the template for the verification code. */
         interactionEvent: "SignIn" | "Register" | "ForgotPassword";
       },
@@ -776,10 +896,25 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     verifyVerificationCodeVerification: (
       data: {
         /** The identifier (email address or phone number) to verify the code against. Must match the identifier used to send the verification code. */
-        identifier: {
-          type: "email" | "phone";
-          value: string;
-        };
+        identifier:
+          | {
+              /** @format "email" */
+              type: string;
+              /**
+               * @format regex
+               * @pattern /^\S+@\S+\.\S+$/
+               */
+              value: string;
+            }
+          | {
+              /** @format "phone" */
+              type: string;
+              /**
+               * @format regex
+               * @pattern /^\d+$/
+               */
+              value: string;
+            };
         /** The verification ID of the CodeVerification record. */
         verificationId: string;
         /** The verification code to be verified. */
@@ -789,6 +924,58 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     ) =>
       this.request<VerifyVerificationCodeVerificationData, void>({
         path: `/api/experience/verification/verification-code/verify`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Create a new MFA verification code and send it to the user's bound identifier (email or phone). This endpoint automatically uses the user's bound email address or phone number from their profile for MFA verification. The user must be identified before calling this endpoint.
+     *
+     * @tags Experience
+     * @name CreateAndSendMfaVerificationCode
+     * @summary Create and send MFA verification code
+     * @request POST:/api/experience/verification/mfa-verification-code
+     */
+    createAndSendMfaVerificationCode: (
+      data: {
+        /** The type of identifier to use for MFA verification. Must be either 'Email' or 'Phone'. The endpoint will automatically use the user's bound identifier of this type. */
+        identifierType: "email" | "phone" | "Email" | "Phone";
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<CreateAndSendMfaVerificationCodeData, void>({
+        path: `/api/experience/verification/mfa-verification-code`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Verify the provided MFA verification code. The verification code must have been sent using the MFA verification code endpoint. This endpoint verifies the code against the user's bound identifier and marks the verification as complete if successful.
+     *
+     * @tags Experience
+     * @name VerifyMfaVerificationCode
+     * @summary Verify MFA verification code
+     * @request POST:/api/experience/verification/mfa-verification-code/verify
+     */
+    verifyMfaVerificationCode: (
+      data: {
+        /** The verification ID returned from the MFA verification code send endpoint. */
+        verificationId: string;
+        /** The verification code received by the user. */
+        code: string;
+        /** The type of identifier used for MFA verification. Must match the type used when sending the verification code. */
+        identifierType: "email" | "phone" | "Email" | "Phone";
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<VerifyMfaVerificationCodeData, void>({
+        path: `/api/experience/verification/mfa-verification-code/verify`,
         method: "POST",
         body: data,
         type: ContentType.Json,
@@ -836,7 +1023,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       data: {
         /** Arbitrary data returned by the social provider to complete the verification process. */
         connectorData: object;
-        /** The ID of the Social verification record. */
+        /** The ID of the social verification record. Optional for Google one tap login, as it does not have a pre-created social verification record in session. */
         verificationId?: string;
       },
       params: RequestParams = {},
@@ -1151,6 +1338,43 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
+     * @description Verify the provided one-time token against the user's email. If successful, the verification record will be marked as verified.
+     *
+     * @tags Experience
+     * @name VerifyOneTimeTokenVerification
+     * @summary Verify one-time token
+     * @request POST:/api/experience/verification/one-time-token/verify
+     */
+    verifyOneTimeTokenVerification: (
+      data: {
+        /** The unique user identifier.  <br/> Currently, only `email` is accepted. */
+        identifier: {
+          /** @format "email" */
+          type: string;
+          /**
+           * @format regex
+           * @pattern /^\S+@\S+\.\S+$/
+           */
+          value: string;
+        };
+        /**
+         * The one-time token to be verified.
+         * @minLength 1
+         */
+        token: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<VerifyOneTimeTokenVerificationData, void>({
+        path: `/api/experience/verification/one-time-token/verify`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
      * @description Adds user profile data to the current experience interaction. <br/>- For `Register`: The profile data provided before the identification request will be used to create a new user account. <br/>- For `SignIn` and `Register`: The profile data provided after the user is identified will be used to update the user's profile when the interaction is submitted. <br/>- `ForgotPassword`: Not supported.
      *
      * @tags Experience
@@ -1189,11 +1413,18 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
             type: string;
             verificationId: string;
           }
+        | {
+            /** @format "extraProfile" */
+            type: string;
+            values: Record<string, any>;
+          }
       ) & {
-        /** The type of profile data to add. `email`, `phone`, `username`, `password`, etc. */
+        /** The type of profile data to add. Available options: `email`, `phone`, `username`, `password`, `social`, or `extraProfile`. */
         type?: any;
         /** The plain text value of the profile data. Only supported for profile data types that does not require verification, such as `username` and `password`. */
         value?: any;
+        /** The extra profile data to add. Only supported for `extraProfile` type. The data will be validated and split into standard user profile attributes and custom user profile attributes. The standard user profile attributes will be set to the user profile, whereas the custom user profile attributes will be set to the user custom data. */
+        values?: any;
         /** The ID of the verification record used to verify the profile data. Required for profile data types that require verification, such as `email`, `phone` and `social`. */
         verificationId?: any;
       },
@@ -1246,6 +1477,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
+     * @description Mark the optional additional MFA binding suggestion as skipped for the current interaction. When multiple MFA factors are enabled and only an email/phone factor is configured, a suggestion to add another factor may be shown; this endpoint records the choice to skip.
+     *
+     * @tags Experience
+     * @name SkipMfaSuggestion
+     * @summary Skip additional MFA suggestion
+     * @request POST:/api/experience/profile/mfa/mfa-suggestion-skipped
+     */
+    skipMfaSuggestion: (params: RequestParams = {}) =>
+      this.request<SkipMfaSuggestionData, void>({
+        path: `/api/experience/profile/mfa/mfa-suggestion-skipped`,
+        method: "POST",
+        ...params,
+      }),
+
+    /**
      * @description Bind new MFA verification to the user profile using the verificationId.
      *
      * @tags Experience
@@ -1256,7 +1502,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     bindMfaVerification: (
       data: {
         /** The type of MFA. */
-        type: "Totp" | "WebAuthn" | "BackupCode";
+        type: "Totp" | "WebAuthn" | "BackupCode" | "EmailVerificationCode" | "PhoneVerificationCode";
         /** The ID of the MFA verification record. */
         verificationId: string;
       },
@@ -1290,648 +1536,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     ) =>
       this.request<GetEnabledSsoConnectorsData, void>({
         path: `/api/experience/sso-connectors`,
-        method: "GET",
-        query: query,
-        format: "json",
-        ...params,
-      }),
-  };
-  interaction = {
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionUpdate
-     * @request PUT:/api/interaction
-     */
-    interactionUpdate: (
-      data: {
-        event: "SignIn" | "Register" | "ForgotPassword";
-        identifier?:
-          | {
-              /** @minLength 1 */
-              username: string;
-              /** @minLength 1 */
-              password: string;
-            }
-          | {
-              /** @minLength 1 */
-              email: string;
-              /** @minLength 1 */
-              password: string;
-            }
-          | {
-              /** @minLength 1 */
-              phone: string;
-              /** @minLength 1 */
-              password: string;
-            }
-          | {
-              /**
-               * @format regex
-               * @pattern /^\S+@\S+\.\S+$/
-               */
-              email: string;
-              /** @minLength 1 */
-              verificationCode: string;
-            }
-          | {
-              /**
-               * @format regex
-               * @pattern /^\d+$/
-               */
-              phone: string;
-              /** @minLength 1 */
-              verificationCode: string;
-            }
-          | {
-              connectorId: string;
-              /** arbitrary */
-              connectorData: object;
-            }
-          | {
-              connectorId: string;
-              email: string;
-            }
-          | {
-              connectorId: string;
-              phone: string;
-            };
-        profile?: {
-          /**
-           * @format regex
-           * @pattern /^[A-Z_a-z]\w*$/
-           */
-          username?: string;
-          /**
-           * @format regex
-           * @pattern /^\S+@\S+\.\S+$/
-           */
-          email?: string;
-          /**
-           * @format regex
-           * @pattern /^\d+$/
-           */
-          phone?: string;
-          connectorId?: string;
-          password?: string;
-        };
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<InteractionUpdateData, void>({
-        path: `/api/interaction`,
-        method: "PUT",
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionDelete
-     * @request DELETE:/api/interaction
-     */
-    interactionDelete: (params: RequestParams = {}) =>
-      this.request<InteractionDeleteData, void>({
-        path: `/api/interaction`,
-        method: "DELETE",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionEventUpdate
-     * @request PUT:/api/interaction/event
-     */
-    interactionEventUpdate: (
-      data: {
-        event: "SignIn" | "Register" | "ForgotPassword";
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<InteractionEventUpdateData, void>({
-        path: `/api/interaction/event`,
-        method: "PUT",
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionIdentifiersPartialUpdate
-     * @request PATCH:/api/interaction/identifiers
-     */
-    interactionIdentifiersPartialUpdate: (
-      data:
-        | {
-            /** @minLength 1 */
-            username: string;
-            /** @minLength 1 */
-            password: string;
-          }
-        | {
-            /** @minLength 1 */
-            email: string;
-            /** @minLength 1 */
-            password: string;
-          }
-        | {
-            /** @minLength 1 */
-            phone: string;
-            /** @minLength 1 */
-            password: string;
-          }
-        | {
-            /**
-             * @format regex
-             * @pattern /^\S+@\S+\.\S+$/
-             */
-            email: string;
-            /** @minLength 1 */
-            verificationCode: string;
-          }
-        | {
-            /**
-             * @format regex
-             * @pattern /^\d+$/
-             */
-            phone: string;
-            /** @minLength 1 */
-            verificationCode: string;
-          }
-        | {
-            connectorId: string;
-            /** arbitrary */
-            connectorData: object;
-          }
-        | {
-            connectorId: string;
-            email: string;
-          }
-        | {
-            connectorId: string;
-            phone: string;
-          },
-      params: RequestParams = {},
-    ) =>
-      this.request<InteractionIdentifiersPartialUpdateData, void>({
-        path: `/api/interaction/identifiers`,
-        method: "PATCH",
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionProfileUpdate
-     * @request PUT:/api/interaction/profile
-     */
-    interactionProfileUpdate: (
-      data: {
-        /**
-         * @format regex
-         * @pattern /^[A-Z_a-z]\w*$/
-         */
-        username?: string;
-        /**
-         * @format regex
-         * @pattern /^\S+@\S+\.\S+$/
-         */
-        email?: string;
-        /**
-         * @format regex
-         * @pattern /^\d+$/
-         */
-        phone?: string;
-        connectorId?: string;
-        password?: string;
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<InteractionProfileUpdateData, void>({
-        path: `/api/interaction/profile`,
-        method: "PUT",
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionProfilePartialUpdate
-     * @request PATCH:/api/interaction/profile
-     */
-    interactionProfilePartialUpdate: (
-      data: {
-        /**
-         * @format regex
-         * @pattern /^[A-Z_a-z]\w*$/
-         */
-        username?: string;
-        /**
-         * @format regex
-         * @pattern /^\S+@\S+\.\S+$/
-         */
-        email?: string;
-        /**
-         * @format regex
-         * @pattern /^\d+$/
-         */
-        phone?: string;
-        connectorId?: string;
-        password?: string;
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<InteractionProfilePartialUpdateData, void>({
-        path: `/api/interaction/profile`,
-        method: "PATCH",
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionProfileDelete
-     * @request DELETE:/api/interaction/profile
-     */
-    interactionProfileDelete: (params: RequestParams = {}) =>
-      this.request<InteractionProfileDeleteData, void>({
-        path: `/api/interaction/profile`,
-        method: "DELETE",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionSubmitCreate
-     * @request POST:/api/interaction/submit
-     */
-    interactionSubmitCreate: (params: RequestParams = {}) =>
-      this.request<InteractionSubmitCreateData, void>({
-        path: `/api/interaction/submit`,
-        method: "POST",
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionConsentCreate
-     * @request POST:/api/interaction/consent
-     */
-    interactionConsentCreate: (
-      data: {
-        organizationIds?: string[];
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<InteractionConsentCreateData, void>({
-        path: `/api/interaction/consent`,
-        method: "POST",
-        body: data,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionConsentList
-     * @request GET:/api/interaction/consent
-     */
-    interactionConsentList: (params: RequestParams = {}) =>
-      this.request<InteractionConsentListData, any>({
-        path: `/api/interaction/consent`,
-        method: "GET",
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionVerificationSocialAuthorizationUriCreate
-     * @request POST:/api/interaction/verification/social-authorization-uri
-     */
-    interactionVerificationSocialAuthorizationUriCreate: (
-      data: {
-        connectorId: string;
-        state: string;
-        /** Validator function */
-        redirectUri: object;
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<InteractionVerificationSocialAuthorizationUriCreateData, void>({
-        path: `/api/interaction/verification/social-authorization-uri`,
-        method: "POST",
-        body: data,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionVerificationVerificationCodeCreate
-     * @request POST:/api/interaction/verification/verification-code
-     */
-    interactionVerificationVerificationCodeCreate: (
-      data:
-        | {
-            /**
-             * @format regex
-             * @pattern /^\S+@\S+\.\S+$/
-             */
-            email: string;
-          }
-        | {
-            /**
-             * @format regex
-             * @pattern /^\d+$/
-             */
-            phone: string;
-          },
-      params: RequestParams = {},
-    ) =>
-      this.request<InteractionVerificationVerificationCodeCreateData, void>({
-        path: `/api/interaction/verification/verification-code`,
-        method: "POST",
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionVerificationTotpCreate
-     * @request POST:/api/interaction/verification/totp
-     */
-    interactionVerificationTotpCreate: (params: RequestParams = {}) =>
-      this.request<InteractionVerificationTotpCreateData, any>({
-        path: `/api/interaction/verification/totp`,
-        method: "POST",
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionVerificationWebauthnRegistrationCreate
-     * @request POST:/api/interaction/verification/webauthn-registration
-     */
-    interactionVerificationWebauthnRegistrationCreate: (params: RequestParams = {}) =>
-      this.request<InteractionVerificationWebauthnRegistrationCreateData, any>({
-        path: `/api/interaction/verification/webauthn-registration`,
-        method: "POST",
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionVerificationWebauthnAuthenticationCreate
-     * @request POST:/api/interaction/verification/webauthn-authentication
-     */
-    interactionVerificationWebauthnAuthenticationCreate: (params: RequestParams = {}) =>
-      this.request<InteractionVerificationWebauthnAuthenticationCreateData, void>({
-        path: `/api/interaction/verification/webauthn-authentication`,
-        method: "POST",
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionBindMfaCreate
-     * @request POST:/api/interaction/bind-mfa
-     */
-    interactionBindMfaCreate: (
-      data:
-        | {
-            /** @format "Totp" */
-            type: string;
-            code: string;
-          }
-        | {
-            /** @format "WebAuthn" */
-            type: string;
-            id: string;
-            rawId: string;
-            response: {
-              clientDataJSON: string;
-              attestationObject: string;
-              authenticatorData?: string;
-              transports?: ("usb" | "nfc" | "ble" | "internal" | "cable" | "hybrid" | "smart-card")[];
-              publicKeyAlgorithm?: number;
-              publicKey?: string;
-            };
-            authenticatorAttachment?: "cross-platform" | "platform";
-            clientExtensionResults: {
-              appid?: boolean;
-              crepProps?: {
-                rk?: boolean;
-              };
-              hmacCreateSecret?: boolean;
-            };
-          }
-        | {
-            /** @format "BackupCode" */
-            type: string;
-          },
-      params: RequestParams = {},
-    ) =>
-      this.request<InteractionBindMfaCreateData, void>({
-        path: `/api/interaction/bind-mfa`,
-        method: "POST",
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionMfaUpdate
-     * @request PUT:/api/interaction/mfa
-     */
-    interactionMfaUpdate: (
-      data:
-        | {
-            /** @format "Totp" */
-            type: string;
-            code: string;
-          }
-        | {
-            /** @format "WebAuthn" */
-            type: string;
-            id: string;
-            rawId: string;
-            authenticatorAttachment?: "cross-platform" | "platform";
-            clientExtensionResults: {
-              appid?: boolean;
-              crepProps?: {
-                rk?: boolean;
-              };
-              hmacCreateSecret?: boolean;
-            };
-            response: {
-              clientDataJSON: string;
-              authenticatorData: string;
-              signature: string;
-              userHandle?: string;
-            };
-          }
-        | {
-            /** @format "BackupCode" */
-            type: string;
-            code: string;
-          },
-      params: RequestParams = {},
-    ) =>
-      this.request<InteractionMfaUpdateData, void>({
-        path: `/api/interaction/mfa`,
-        method: "PUT",
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionMfaSkippedUpdate
-     * @request PUT:/api/interaction/mfa-skipped
-     */
-    interactionMfaSkippedUpdate: (
-      data: {
-        /** @format true */
-        mfaSkipped: boolean;
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<InteractionMfaSkippedUpdateData, void>({
-        path: `/api/interaction/mfa-skipped`,
-        method: "PUT",
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionSingleSignOnAuthorizationUrlCreate
-     * @request POST:/api/interaction/single-sign-on/{connectorId}/authorization-url
-     */
-    interactionSingleSignOnAuthorizationUrlCreate: (
-      connectorId: string,
-      data: {
-        /** @minLength 1 */
-        state: string;
-        /** Validator function */
-        redirectUri: object;
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<InteractionSingleSignOnAuthorizationUrlCreateData, void>({
-        path: `/api/interaction/single-sign-on/${connectorId}/authorization-url`,
-        method: "POST",
-        body: data,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionSingleSignOnAuthenticationCreate
-     * @request POST:/api/interaction/single-sign-on/{connectorId}/authentication
-     */
-    interactionSingleSignOnAuthenticationCreate: (
-      connectorId: string,
-      data: Record<string, any>,
-      params: RequestParams = {},
-    ) =>
-      this.request<InteractionSingleSignOnAuthenticationCreateData, void>({
-        path: `/api/interaction/single-sign-on/${connectorId}/authentication`,
-        method: "POST",
-        body: data,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionSingleSignOnRegistrationCreate
-     * @request POST:/api/interaction/single-sign-on/{connectorId}/registration
-     */
-    interactionSingleSignOnRegistrationCreate: (connectorId: string, params: RequestParams = {}) =>
-      this.request<InteractionSingleSignOnRegistrationCreateData, void>({
-        path: `/api/interaction/single-sign-on/${connectorId}/registration`,
-        method: "POST",
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Interaction
-     * @name InteractionSingleSignOnConnectorsList
-     * @request GET:/api/interaction/single-sign-on/connectors
-     */
-    interactionSingleSignOnConnectorsList: (
-      query: {
-        /** @format email */
-        email: string;
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<InteractionSingleSignOnConnectorsListData, void>({
-        path: `/api/interaction/single-sign-on/connectors`,
         method: "GET",
         query: query,
         format: "json",
