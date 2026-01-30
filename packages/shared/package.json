@@ -40,7 +40,7 @@
     "@silverhand/eslint-config": "6.0.1",
     "@silverhand/ts-config": "6.0.0",
     "eslint": "^8.56.0",
-    "stylelint": "^16.0.0",
+    "stylelint": "^17.0.0",
     "swagger-typescript-api": "^13.0.21",
     "typescript": "^5.5.3"
   },
