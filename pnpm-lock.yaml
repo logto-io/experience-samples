@@ -10,6 +10,7 @@ overrides:
   http-proxy-middleware@>=3.0.0 <3.0.5: ^3.0.5
   brace-expansion@>=1.0.0 <=1.1.11: ^1.1.12
   brace-expansion@>=2.0.0 <=2.0.1: ^2.0.2
+  lodash@>=4.0.0 <=4.17.22: ^4.17.23
 
 importers:
 
@@ -98,7 +99,7 @@ importers:
         version: link:../shared
       '@logto/schemas':
         specifier: ^1.19.0
-        version: 1.19.0(zod@3.23.8)
+        version: 1.19.0(zod@3.24.3)
       '@silverhand/eslint-config':
         specifier: ^6.0.1
         version: 6.0.1(eslint@8.57.0)(prettier@3.3.3)(typescript@5.5.4)
@@ -593,56 +594,67 @@ packages:
     resolution: {integrity: sha512-54v4okehwl5TaSIkpp97rAHGp7t3ghinRd/vyC1iXqXMfjYUTm7TfYmCzXDoHUPTTf36L8pr0E7YsD3CfB3ZDg==}
     cpu: [arm]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-arm-musleabihf@4.50.1':
     resolution: {integrity: sha512-p/LaFyajPN/0PUHjv8TNyxLiA7RwmDoVY3flXHPSzqrGcIp/c2FjwPPP5++u87DGHtw+5kSH5bCJz0mvXngYxw==}
     cpu: [arm]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-linux-arm64-gnu@4.50.1':
     resolution: {integrity: sha512-2AbMhFFkTo6Ptna1zO7kAXXDLi7H9fGTbVaIq2AAYO7yzcAsuTNWPHhb2aTA6GPiP+JXh85Y8CiS54iZoj4opw==}
     cpu: [arm64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-arm64-musl@4.50.1':
     resolution: {integrity: sha512-Cgef+5aZwuvesQNw9eX7g19FfKX5/pQRIyhoXLCiBOrWopjo7ycfB292TX9MDcDijiuIJlx1IzJz3IoCPfqs9w==}
     cpu: [arm64]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-linux-loongarch64-gnu@4.50.1':
     resolution: {integrity: sha512-RPhTwWMzpYYrHrJAS7CmpdtHNKtt2Ueo+BlLBjfZEhYBhK00OsEqM08/7f+eohiF6poe0YRDDd8nAvwtE/Y62Q==}
     cpu: [loong64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-ppc64-gnu@4.50.1':
     resolution: {integrity: sha512-eSGMVQw9iekut62O7eBdbiccRguuDgiPMsw++BVUg+1K7WjZXHOg/YOT9SWMzPZA+w98G+Fa1VqJgHZOHHnY0Q==}
     cpu: [ppc64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-gnu@4.50.1':
     resolution: {integrity: sha512-S208ojx8a4ciIPrLgazF6AgdcNJzQE4+S9rsmOmDJkusvctii+ZvEuIC4v/xFqzbuP8yDjn73oBlNDgF6YGSXQ==}
     cpu: [riscv64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-musl@4.50.1':
     resolution: {integrity: sha512-3Ag8Ls1ggqkGUvSZWYcdgFwriy2lWo+0QlYgEFra/5JGtAd6C5Hw59oojx1DeqcA2Wds2ayRgvJ4qxVTzCHgzg==}
     cpu: [riscv64]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-linux-s390x-gnu@4.50.1':
     resolution: {integrity: sha512-t9YrKfaxCYe7l7ldFERE1BRg/4TATxIg+YieHQ966jwvo7ddHJxPj9cNFWLAzhkVsbBvNA4qTbPVNsZKBO4NSg==}
     cpu: [s390x]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-x64-gnu@4.50.1':
     resolution: {integrity: sha512-MCgtFB2+SVNuQmmjHf+wfI4CMxy3Tk8XjA5Z//A0AKD7QXUYFMQcns91K6dEHBvZPCnhJSyDWLApk40Iq/H3tA==}
     cpu: [x64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-x64-musl@4.50.1':
     resolution: {integrity: sha512-nEvqG+0jeRmqaUMuwzlfMKwcIVffy/9KGbAGyoa26iu6eSngAYQ512bMXuqqPrlTyfqdlB9FVINs93j534UJrg==}
     cpu: [x64]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-openharmony-arm64@4.50.1':
     resolution: {integrity: sha512-RDsLm+phmT3MJd9SNxA9MNuEAO/J2fhW8GXk62G/B4G7sLVumNFbRwDL6v5NrESb48k+QMqdGbHgEtfU0LCpbA==}
@@ -1971,8 +1983,8 @@ packages:
   lodash.zip@4.2.0:
     resolution: {integrity: sha512-C7IOaBBK/0gMORRBd8OETNx3kmOkgIWIPvyDpZSCTwUrpYmgZwJkjZeOD8ww4xbOUOs4/attY+pciKvadNfFbg==}
 
-  lodash@4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+  lodash@4.17.23:
+    resolution: {integrity: sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==}
 
   log-symbols@6.0.0:
     resolution: {integrity: sha512-i24m8rpwhmPIS4zscNzK6MSEhk0DUWa/8iYQWxhffV8jkI4Phvs3F+quL5xvS0gdQR0FyTCMMH33Y78dDTzzIw==}
@@ -3236,13 +3248,6 @@ snapshots:
     optionalDependencies:
       zod: 3.24.3
 
-  '@logto/phrases-experience@1.7.0(zod@3.23.8)':
-    dependencies:
-      '@logto/core-kit': 2.5.0
-      '@logto/language-kit': 1.1.0
-      '@silverhand/essentials': 2.9.1
-      zod: 3.23.8
-
   '@logto/phrases-experience@1.7.0(zod@3.24.3)':
     dependencies:
       '@logto/core-kit': 2.5.0
@@ -3250,29 +3255,11 @@ snapshots:
       '@silverhand/essentials': 2.9.1
       zod: 3.24.3
 
-  '@logto/phrases@1.13.0(zod@3.23.8)':
-    dependencies:
-      '@logto/language-kit': 1.1.0
-      '@silverhand/essentials': 2.9.1
-      zod: 3.23.8
-
   '@logto/phrases@1.13.0(zod@3.24.3)':
     dependencies:
       '@logto/language-kit': 1.1.0
       '@silverhand/essentials': 2.9.1
       zod: 3.24.3
-
-  '@logto/schemas@1.19.0(zod@3.23.8)':
-    dependencies:
-      '@logto/connector-kit': 4.0.0
-      '@logto/core-kit': 2.5.0
-      '@logto/language-kit': 1.1.0
-      '@logto/phrases': 1.13.0(zod@3.23.8)
-      '@logto/phrases-experience': 1.7.0(zod@3.23.8)
-      '@logto/shared': 3.1.1
-      '@withtyped/server': 0.13.6(zod@3.23.8)
-      nanoid: 5.0.9
-      zod: 3.23.8
 
   '@logto/schemas@1.19.0(zod@3.24.3)':
     dependencies:
@@ -3430,7 +3417,7 @@ snapshots:
       eslint: 8.57.0
       eslint-ast-utils: 1.1.0
       import-modules: 2.1.0
-      lodash: 4.17.21
+      lodash: 4.17.23
 
   '@silverhand/essentials@2.9.1': {}
 
@@ -4114,7 +4101,7 @@ snapshots:
 
   eslint-plugin-consistent-default-export-name@0.0.15:
     dependencies:
-      lodash: 4.17.21
+      lodash: 4.17.23
       pkg-dir: 5.0.0
 
   eslint-plugin-es-x@7.8.0(eslint@8.57.0):
@@ -4194,7 +4181,7 @@ snapshots:
       astring: 1.8.6
       debug: 4.4.0
       eslint: 8.57.0
-      lodash: 4.17.21
+      lodash: 4.17.23
       pg-formatter: 1.3.0
       sql-parse: 0.1.5
     transitivePeerDependencies:
@@ -4826,7 +4813,7 @@ snapshots:
 
   lodash.zip@4.2.0: {}
 
-  lodash@4.17.21: {}
+  lodash@4.17.23: {}
 
   log-symbols@6.0.0:
     dependencies:
@@ -5559,7 +5546,7 @@ snapshots:
       didyoumean: 1.2.2
       eta: 2.2.0
       js-yaml: 4.1.1
-      lodash: 4.17.21
+      lodash: 4.17.23
       nanoid: 3.3.8
       node-emoji: 2.1.3
       prettier: 3.3.3
