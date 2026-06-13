@@ -22,7 +22,7 @@
     "lint-staged": "^16.0.0",
     "prettier": "^3.0.0",
     "stylelint": "^16.0.0",
-    "typescript": "^5.5.3",
+    "typescript": "^6.0.0",
     "vite": "^6.4.1"
   },
   "stylelint": {
