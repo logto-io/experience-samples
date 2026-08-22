@@ -1,13 +1,11 @@
 <p align="center">
   <a href="https://logto.io/?utm_source=github&utm_medium=readme" target="_blank" align="center" alt="Go to Logto website">
     <picture>
-      <source width="200" media="(prefers-color-scheme: dark)" srcset="https://github.com/logto-io/.github/raw/master/profile/logto-logo-dark.svg">
-      <source width="200" media="(prefers-color-scheme: light)" srcset="https://github.com/logto-io/.github/raw/master/profile/logto-logo-light.svg">
-      <img width="200" src="https://github.com/logto-io/logto/raw/master/logo.png" alt="Logto logo">
+      <source width="200" media="(prefers-color-scheme: dark)" srcset="https://github.com/logto-io/.github/raw/master/profile/logto-lockup-brand-on-dark.svg">
+      <source width="200" media="(prefers-color-scheme: light)" srcset="https://github.com/logto-io/.github/raw/master/profile/logto-lockup-brand-on-light.svg">
+      <img width="200" src="https://github.com/logto-io/.github/raw/master/profile/logto-lockup-brand-on-light.svg" alt="Logto logo">
     </picture>
   </a>
-  <br/>
-  <span><i><a href="https://logto.io" target="_blank">Logto</a> is the better identity infrastructure for developers.</i>
 </p>
 
 [![discord](https://img.shields.io/discord/965845662535147551?color=5865f2&label=discord)](https://discord.gg/vRvwuwgpVX)
