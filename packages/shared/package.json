@@ -41,7 +41,7 @@
     "@silverhand/ts-config": "6.0.0",
     "eslint": "^8.56.0",
     "stylelint": "^16.0.0",
-    "swagger-typescript-api": "^13.0.21",
+    "swagger-typescript-api": "^13.12.2",
     "typescript": "^5.5.3"
   },
   "engines": {

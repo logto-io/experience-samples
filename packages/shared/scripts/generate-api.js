@@ -6,7 +6,7 @@ const outputDirectory = path.resolve(import.meta.dirname, '../src');
 const openApiJsonUrl = 'https://auth.logto.app/api/.well-known/experience.openapi.json';
 
 generateApi({
-  name: 'experience-api.ts',
+  fileName: 'experience-api.ts',
   url: openApiJsonUrl,
   output: outputDirectory,
   httpClientType: 'fetch',
