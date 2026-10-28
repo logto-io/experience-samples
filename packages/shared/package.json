@@ -37,8 +37,8 @@
   },
   "devDependencies": {
     "@logto/schemas": "^1.19.0",
-    "@silverhand/eslint-config": "6.0.1",
-    "@silverhand/ts-config": "6.0.0",
+    "@silverhand/eslint-config": "6.1.0",
+    "@silverhand/ts-config": "6.1.0",
     "eslint": "^8.56.0",
     "stylelint": "^16.0.0",
     "swagger-typescript-api": "^13.12.2",
