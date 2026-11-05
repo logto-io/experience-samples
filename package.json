@@ -26,7 +26,7 @@
     "overrides": {
       "adm-zip@<0.6.1": "^0.6.1",
       "brace-expansion@>=1.0.0 <1.1.21": "^1.1.21",
-      "brace-expansion@>=2.0.0 <2.1.7": "^2.1.7",
+      "brace-expansion@>=2.0.0 <2.1.7": "^5.0.0",
       "browserslist@<4.28.7": "^4.28.7",
       "colord@<2.9.4": "^2.9.4",
       "dompurify@<3.4.17": "^3.4.17",
